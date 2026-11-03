@@ -1,11 +1,12 @@
-import java.util.ArrayList;
-
 /**
  * @author Nastia Kotliar
  *
- * @since 10/13/2026
+ * @since 11/3/2026
  */
-public class Queue<E> {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Queue<E extends Comparable<E>> implements Iterable<E>{
     private int size;
     private ArrayList<E> data = new ArrayList<E>();
 
@@ -92,5 +93,22 @@ public class Queue<E> {
         while (!isEmpty()) {
             poll();
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new QueueIterator<>(data, size);
+    }
+
+    public E findMax() {
+        E max = this.peek();
+
+        for (E e : this) {
+            if (e.compareTo(max) > 0) {
+                max = e;
+            }
+        }
+
+        return max;
     }
 }
